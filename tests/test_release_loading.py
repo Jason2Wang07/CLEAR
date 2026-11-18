@@ -39,6 +39,22 @@ def test_bundle_paths_are_independent_of_working_directory(tmp_path, monkeypatch
     assert resolved["model"] == "Qwen/model"
 
 
+def test_policy_and_simulator_load_identical_relocated_configs(tmp_path):
+    import json
+    from starVLA.model.framework.share_tools import read_mode_config as policy_config
+    from starVLA.model.tools import read_mode_config as simulator_config
+
+    (tmp_path / "final_model").mkdir()
+    checkpoint = tmp_path / "final_model/pytorch_model.pt"
+    checkpoint.touch()
+    (tmp_path / "config.yaml").write_text("asset: bundle://action_normalization/stats/normalization.json\n")
+    (tmp_path / "dataset_statistics.json").write_text(json.dumps({"test": {}}))
+    policy, _ = policy_config(checkpoint)
+    simulator, _ = simulator_config(checkpoint)
+    assert policy == simulator
+    assert Path(policy["asset"]).is_absolute()
+
+
 def test_deployment_rejects_missing_learned_modules_even_in_phase_w(tmp_path):
     model = nn.Module()
     model.config = SimpleNamespace(framework=SimpleNamespace(name="test"))

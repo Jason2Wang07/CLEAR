@@ -9,6 +9,7 @@ import json
 
 
 from omegaconf import OmegaConf
+from starVLA.model.release_paths import resolve_release_paths
 
 
 from starVLA.training.trainer_utils import initialize_overwatch
@@ -115,20 +116,3 @@ def read_mode_config(pretrained_checkpoint):
         overwatch.error(f"❌ Pretrained checkpoint `{pretrained_checkpoint}` does not exist.")
         raise FileNotFoundError(f"Pretrained checkpoint `{pretrained_checkpoint}` does not exist.")
     return global_cfg, norm_stats
-
-
-def resolve_release_paths(value, *, run_dir):
-    """Resolve public config paths independently of the current directory."""
-    roots = {
-        "repo://": Path(__file__).resolve().parents[3],
-        "bundle://": Path(run_dir).resolve(),
-    }
-    if isinstance(value, dict):
-        return {key: resolve_release_paths(item, run_dir=run_dir) for key, item in value.items()}
-    if isinstance(value, list):
-        return [resolve_release_paths(item, run_dir=run_dir) for item in value]
-    if isinstance(value, str):
-        for prefix, root in roots.items():
-            if value.startswith(prefix):
-                return str(root / value[len(prefix):])
-    return value

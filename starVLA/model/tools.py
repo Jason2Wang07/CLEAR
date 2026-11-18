@@ -241,6 +241,9 @@ def read_mode_config(pretrained_checkpoint):
         try:
             ocfg = OmegaConf.load(str(config_yaml))
             global_cfg = OmegaConf.to_container(ocfg, resolve=True)
+            from starVLA.model.release_paths import resolve_release_paths
+
+            global_cfg = resolve_release_paths(global_cfg, run_dir=run_dir)
         except Exception as e:
             logger.error(f"Failed to load YAML config `{config_yaml}`: {e}")
             raise
