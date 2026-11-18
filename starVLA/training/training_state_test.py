@@ -181,7 +181,7 @@ def test_complete_training_state_round_trip_and_data_cursor(tmp_path, libero_pha
         }
     )
     if libero_phase is not None:
-        template = Path(__file__).resolve().parents[2] / "latent_action_model/config" / f"libero_stage2_release_residual_phase_{libero_phase}.yaml"
+        template = Path(__file__).resolve().parents[2] / "configs/reference" / f"libero_stage2_release_residual_phase_{libero_phase}.yaml"
         cfg.framework.action_model = OmegaConf.load(template).framework.action_model
         assert "stage2_lawam_distill_weight" not in cfg.framework.action_model
         cfg.framework.action_model.stage2_action_head_architecture = "flatten_mlp_v1"

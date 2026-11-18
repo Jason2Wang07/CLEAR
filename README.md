@@ -108,6 +108,9 @@ datasets, logs, and optimizer snapshots are excluded from Git. The paper's
 real-world CLEAR experiments are not presented as reproducible from the older
 LaWAM baseline finetuning scripts.
 
+Run the CPU regression suite from the repository root with `python -m pytest -q`.
+Full simulator benchmarks require the separate simulator environments and assets.
+
 ## Acknowledgments and licenses
 
 Built on LaWAM, StarVLA, Qwen3-VL, DINOv3, and the LIBERO/RoboTwin ecosystems.

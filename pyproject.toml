@@ -25,5 +25,17 @@ exclude = ["*tests*", "*__pycache__*"]
 namespaces = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = [
+    "tests",
+    "latent_action_model/action_ae/beta_vae_test.py",
+    "latent_action_model/libero_stage2/temporal_adapter_04s_test.py",
+    "latent_action_model/robotwin_stage2/paired_test.py",
+    "latent_action_model/robotwin_stage2/sidecar_binding_test.py",
+    "latent_action_model/robotwin_stage2/state_transform_test.py",
+    "starVLA/model/framework/vlas/flowmatching_expert_test.py",
+    "starVLA/model/framework/vlas/lawam_stage2_phase_test.py",
+    "starVLA/training/stage2_phase_test.py",
+    "starVLA/training/training_state_test.py",
+    "starVLA/training/trainer_utils/checkpoint_loading_test.py",
+]
 python_files = ["test_*.py", "*_test.py"]
