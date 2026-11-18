@@ -1,0 +1,159 @@
+run_id: libero-stage2-release-residual-phase-b-p-d20260827
+run_root_dir: /data/250010178/ActionVAE/LaWAM/results/stage2/libero_release_residual_abc_v1/phase-b
+seed: 2026
+trackers: [wandb]
+wandb_entity: null
+wandb_project: actionvae-libero-stage2-release-residual-abc
+is_debug: false
+
+framework:
+  name: LaWAM
+  qwenvl:
+    base_vlm: /data/250010178/ActionVAE/LaWAM/results/Checkpoints/qwen3_weights
+  action_model:
+    future_action_window_size: 49
+    past_action_window_size: 0
+    action_horizon: 50
+    lam_ckpt_path: /data/share/libero/experiments/actionvae/libero_v1_12s/stage1-dino-v1-s20260803/checkpoints/epoch-39.ckpt
+    lam_yaml_path: /data/250010178/ActionVAE/LaWAM/latent_action_model/config/effect_stage1_libero_v1_12s_dino_residual.yaml
+    lam_vision_model_id_override: /data/250010178/ActionVAE/LaWAM/weights/dinov3-vitb16-pretrain-lvd1689m
+    latent_action_placeholder_token: <ACT_PH>
+    num_action_queries: 8
+    flow_action_num_queries: 8
+    flow_only_mode: false
+    future_prediction: true
+    detach_future_feature: true
+    enable_loss_distill: false
+    lam_encoder_distill_weight: 0.0
+    perceptual_weight: 0.0
+    repeated_diffusion_steps: 2
+
+    stage2_arm: p2
+    stage2_phase: P
+    stage2_training_recipe: libero_release_residual_abc_v1
+    stage2_query_scheme: act_effect_flow_plan_v1
+    stage2_temporal_contract: libero_baseline_04s_adapter_v1
+    stage2_latent_dim: 32
+    stage2_adapter_dim: 256
+    stage2_predictor_hidden_dim: 256
+    stage2_action_distribution: dense_transition_gaussian_v3
+    stage2_action_inference: mean
+    stage2_action_decoder_layers: 3
+    stage2_action_decoder_heads: 8
+    stage2_action_decoder_dropout: 0.0
+    stage2_action_visual_grid_size: [16, 16]
+    stage2_horizon_condition_dim: 3
+    stage2_horizon_seconds: 0.4
+    stage2_action_state_source: actionvae14_padded32
+    stage2_residual_warmup_start_step: 6000
+    stage2_residual_teacher_prob_start: 0.5
+    stage2_residual_teacher_prob_end: 0.0
+    stage2_residual_teacher_ramp_steps: 1000
+    stage2_residual_predictor_grad_start_step: 7000
+    stage2_residual_condition_dropout: 0.0
+
+    stage2_flow_weight: 1.0
+    stage2_effect_distill_weight: 0.1
+    stage2_action_distill_weight: 0.5
+    stage2_dino_weight: 0.1
+    stage2_action_kl_weight: 1.0
+    stage2_action_mean_weight: 0.5
+    stage2_action_trajectory_weight: 0.2
+
+    stage2_effect_teacher_checkpoint_path: /data/share/libero/experiments/actionvae/libero_v1_12s/stage1-dino-v1-s20260803/checkpoints/epoch-39.ckpt
+    stage2_effect_teacher_checkpoint_sha256: 75db2595c6ae37b636f8d6115051fe998aad973b7cbbda2ce18e4265cc86fe4a
+    stage2_effect_teacher_config_path: /data/250010178/ActionVAE/LaWAM/latent_action_model/config/effect_stage1_libero_v1_12s_dino_residual.yaml
+    stage2_effect_teacher_config_sha256: 8ed6a8a6fa5927ed2f4711fafa596b63213bc432a62e93d45a5c397ee24c9853
+    stage2_action_decoder_checkpoint_path: /data/250010178/actionvae-runs/libero/libero_v1_12s/action-beta-vae/standard-normal-tanh-b2e1-r200-e091-10k-s20260825/checkpoints/step-0009889.ckpt
+    stage2_action_decoder_checkpoint_sha256: 9c7aeb75e226d4d9f0af2632a95117a166dcdb6f4681e70529b623a7489008f5
+    stage2_action_decoder_config_path: /data/250010178/ActionVAE/LaWAM/latent_action_model/config/action_beta_vae_libero_v1_12s_a1.yaml
+    stage2_action_decoder_config_sha256: 47a919903a76057322a42607721f8742d33ed40af07a97547905e96b1db3d5f4
+    stage2_action_decoder_data_root: /data/share/libero/processed_data/actionvae/libero_actionvae_v1_12s_a1_dino_selected
+    stage2_latent_cache_root: /data/250010178/ActionVAE/LaWAM/results/stage2/libero_baseline_04s_adapter_v1/teacher-cache/full-273465
+    stage2_latent_normalization_path: /data/250010178/ActionVAE/LaWAM/results/stage2/libero_baseline_04s_adapter_v1/teacher-cache/full-273465/normalization.json
+
+    flow_cfg:
+      action_dim: 32
+      state_dim: 32
+      use_state: false
+      vlm_dim: 2048
+      hidden_dim: 1024
+      attention_heads: 16
+      num_layers: 16
+      num_target_vision_tokens: -1
+      interleave_self_attention: true
+      use_alternate_vldit: true
+      attend_text_every_n_blocks: 2
+      cfg_drop_prob: 0.0
+      cfg_guidance_scale: 1.0
+      num_inference_steps: 10
+      num_timestep_buckets: 1000
+      horizon_sec: 0.4
+      noise_beta_alpha: 1.5
+      noise_beta_beta: 1.0
+      noise_s: 0.999
+      token_independent_noise: false
+      use_action_positional_embeddings: true
+
+datasets:
+  vla_data:
+    data_root_dir: /data/share
+    data_mix: libero
+    stage2_source_root: /data/share/libero_merged_no_noops_20hz
+    stage2_temporal_contract: libero_baseline_04s_adapter_v1
+    stage2_paired_cache: /data/250010178/ActionVAE/LaWAM/results/stage2/libero_baseline_04s_adapter_v1/teacher-cache/full-273465
+    stage2_paired_cache_provenance: /data/250010178/ActionVAE/LaWAM/results/stage2/libero_baseline_04s_adapter_v1/teacher-cache/full-273465/provenance.json
+    stage2_action_state_source: actionvae14_padded32
+    stage2_expected_rows: 273465
+    image_resolution: 256
+    per_device_batch_size: 16
+    num_workers: 4
+    val_num_workers: 2
+    val_tail_ratio: 0.01
+    train_split_all: true
+    video_backend: pyav
+    num_frames: 2
+    sec_chunk: 0.4
+    enable_primary_video_aug: false
+    enable_primary_random_resized_crop: false
+    enable_video_frame_cache: false
+
+trainer:
+  max_train_steps: 8000
+  num_warmup_steps: 480
+  eval_interval: 500
+  eval_batches: 20
+  save_interval: 500
+  save_training_state: true
+  training_state_interval: 500
+  save_final_model: true
+  learning_rate:
+    base: 0.0001
+    action_model: {lr: 0.0001, modules: [policy_backend.flow]}
+    world_model: {lr: 0.0001, modules: [policy_backend.lam.decoder]}
+    predictors: {lr: 0.0001, modules: [policy_backend.paired_latent_predictor]}
+    residual: {lr: 0.0001, modules: [policy_backend.stage2_action_residual]}
+    vlm: {lr: 0.00001, modules: [policy_backend.vlm]}
+  lr_scheduler_type: cosine_with_min_lr
+  scheduler_specific_kwargs: {min_lr: 5.0e-7}
+  freeze:
+    freeze_vision_backbone: false
+    freeze_llm_backbone: false
+    keep_llm_first_n_layers: 16
+    freeze_last_llm_layer: true
+    freeze_embedding: true
+    unfreeze_vision_merger: true
+    unfreeze_llm_last_n_layers: -1
+    unfreeze_lam_decoder: false
+  logging_frequency: 100
+  gradient_clipping: 1.0
+  gradient_accumulation_steps: 4
+  ddp_find_unused_parameters: false
+  optimizer: {betas: [0.9, 0.95], eps: 1.0e-8, weight_decay: 1.0e-8}
+  pretrained_checkpoint: <REQUIRED_PHASE_W_BEST_CHECKPOINT>
+  stage2_parent_phase: W
+  stage2_parent_selection: <REQUIRED_PHASE_W_BEST_SELECTION>
+  strict_finetune_init: true
+  load_pretrained_policy_flow: true
+  load_pretrained_lam: true
+  use_pretrained_dataset_statistics: false

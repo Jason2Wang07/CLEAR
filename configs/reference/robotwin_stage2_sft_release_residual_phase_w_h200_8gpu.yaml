@@ -1,0 +1,161 @@
+run_id: robotwin-stage2-sft-release-residual-dense-s1-phase-w-h200-8gpu-50k
+run_root_dir: results/stage2/robotwin_sft_release_residual_dense_s1_abc50k_h200_8gpu_v1/phase-w
+seed: 2026
+trackers: [wandb]
+wandb_entity: null
+wandb_project: actionvae-robotwin-stage2-sft-release-residual-abc50k-h200
+is_debug: false
+
+framework:
+  name: LaWAM
+  qwenvl:
+    base_vlm: <REQUIRED_QWEN3_VL_ROOT>
+  action_model:
+    future_action_window_size: 49
+    past_action_window_size: 0
+    action_horizon: 50
+    lam_ckpt_path: <REQUIRED_ROBOTWIN_EFFECT_E09_CHECKPOINT>
+    lam_yaml_path: latent_action_model/config/effect_stage1_robotwin_v1_12s_dino_residual.yaml
+    lam_vision_model_id_override: <REQUIRED_DINOV3_VITB16_ROOT>
+    latent_action_placeholder_token: <ACT_PH>
+    num_action_queries: 8
+    flow_action_num_queries: 8
+    flow_only_mode: false
+    future_prediction: true
+    detach_future_feature: true
+    enable_loss_distill: false
+    lam_encoder_distill_weight: 0.0
+    perceptual_weight: 0.0
+    repeated_diffusion_steps: 2
+
+    stage2_arm: p2
+    stage2_phase: W
+    stage2_training_recipe: robotwin_sft_release_residual_abc_50k_v1
+    stage2_query_scheme: act_effect_flow_plan_v1
+    stage2_temporal_contract: robotwin_official_12s_dense_s1_v1
+    stage2_latent_dim: 32
+    stage2_adapter_dim: 256
+    stage2_predictor_hidden_dim: 256
+    stage2_action_distribution: dense_transition_gaussian_v3
+    stage2_action_inference: mean
+    stage2_action_decoder_layers: 3
+    stage2_action_decoder_heads: 8
+    stage2_action_decoder_dropout: 0.0
+    stage2_action_visual_grid_size: [16, 16]
+    stage2_horizon_condition_dim: 3
+    stage2_horizon_seconds: 1.2
+    stage2_action_state_source: robotwin_actionvae14_padded32
+    stage2_residual_warmup_start_step: 0
+    stage2_residual_teacher_prob_start: 0.0
+    stage2_residual_teacher_prob_end: 0.0
+    stage2_residual_teacher_ramp_steps: 1
+    stage2_residual_predictor_grad_start_step: 0
+    stage2_residual_condition_dropout: 0.0
+
+    stage2_flow_weight: 0.0
+    stage2_effect_distill_weight: 1.0
+    stage2_action_distill_weight: 0.0
+    stage2_dino_weight: 1.0
+    stage2_action_kl_weight: 1.0
+    stage2_action_mean_weight: 0.5
+    stage2_action_trajectory_weight: 0.2
+
+    stage2_effect_teacher_checkpoint_path: <REQUIRED_ROBOTWIN_EFFECT_E09_CHECKPOINT>
+    stage2_effect_teacher_checkpoint_sha256: 66e872b5f6a67537b6cf33ad4d0b7e65652057e3e44a726f0a00c8205dd5c9a0
+    stage2_effect_teacher_config_path: latent_action_model/config/effect_stage1_robotwin_v1_12s_dino_residual.yaml
+    stage2_effect_teacher_config_sha256: 1a1094f79c93c8fb0c77b32db29fc221eaefce932c3da3cac4cb74ea25b08bae
+    stage2_action_decoder_checkpoint_path: <REQUIRED_ROBOTWIN_ACTION_BETA_VAE_CHECKPOINT>
+    stage2_action_decoder_checkpoint_sha256: fac6da745cff1706bc9037e54ba799fa71557f5847fdc1b20e28ad458e7d6bc6
+    stage2_action_decoder_config_path: latent_action_model/config/action_beta_vae_robotwin_v1_12s_dense_s1_a1.yaml
+    stage2_action_decoder_config_sha256: d2708adc9d90721adcb0f4a65dee52d4473eafe2ec4d1dd1281af2495f8bbbc1
+    stage2_action_decoder_data_root: <REQUIRED_ROBOTWIN_DENSE_SIDECAR_ROOT>
+    stage2_action_decoder_sidecar_binding: semantic
+    stage2_action_decoder_sidecar_reference_root: <REQUIRED_ROBOTWIN_SIDECAR_REFERENCE_ROOT>
+    stage2_latent_cache_root: <REQUIRED_ROBOTWIN_GAUSSIAN_CACHE_ROOT>
+    stage2_latent_normalization_path: <REQUIRED_ROBOTWIN_GAUSSIAN_CACHE_ROOT>/latent_normalization.json
+
+    flow_cfg:
+      action_dim: 32
+      state_dim: 32
+      use_state: false
+      vlm_dim: 2048
+      hidden_dim: 1024
+      attention_heads: 16
+      num_layers: 16
+      num_target_vision_tokens: -1
+      interleave_self_attention: true
+      use_alternate_vldit: true
+      attend_text_every_n_blocks: 2
+      cfg_drop_prob: 0.0
+      cfg_guidance_scale: 1.0
+      num_inference_steps: 10
+      num_timestep_buckets: 1000
+      horizon_sec: 1.2
+      noise_beta_alpha: 1.5
+      noise_beta_beta: 1.0
+      noise_s: 0.999
+      token_independent_noise: false
+      use_action_positional_embeddings: true
+
+datasets:
+  vla_data:
+    data_root_dir: <REQUIRED_ROBOTWIN_DATA_PARENT>
+    data_mix: robotwin_merged
+    stage2_source_root: <REQUIRED_ROBOTWIN_SOURCE_ROOT>
+    stage2_temporal_contract: robotwin_official_12s_dense_s1_v1
+    stage2_manifest: <REQUIRED_ROBOTWIN_DENSE_SIDECAR_ROOT>/manifests
+    stage2_paired_cache: <REQUIRED_ROBOTWIN_GAUSSIAN_CACHE_ROOT>/paired_latents.npz
+    stage2_action_state_source: robotwin_actionvae14_padded32
+    stage2_expected_rows: 5087247
+    image_resolution: 256
+    per_device_batch_size: 32
+    num_workers: 4
+    val_num_workers: 2
+    video_backend: pyav
+    num_frames: 2
+    sec_chunk: 1.2
+    enable_primary_video_aug: false
+    enable_primary_random_resized_crop: false
+    enable_video_frame_cache: false
+
+trainer:
+  max_train_steps: 4000
+  num_warmup_steps: 240
+  eval_interval: 500
+  eval_batches: 20
+  save_interval: 500
+  save_training_state: true
+  training_state_interval: 500
+  save_final_model: true
+  process_checkpoint_keep_limit: 1
+  learning_rate:
+    base: 0.0001
+    action_model: {lr: 0.0001, modules: [policy_backend.flow]}
+    world_model: {lr: 0.0001, modules: [policy_backend.lam.decoder]}
+    predictors: {lr: 0.0001, modules: [policy_backend.paired_latent_predictor]}
+    residual: {lr: 0.0001, modules: [policy_backend.stage2_action_residual]}
+    vlm: {lr: 0.0, modules: [policy_backend.vlm]}
+  lr_scheduler_type: cosine_with_min_lr
+  scheduler_specific_kwargs: {min_lr: 5.0e-7}
+  freeze:
+    freeze_vision_backbone: true
+    freeze_llm_backbone: true
+    keep_llm_first_n_layers: 16
+    freeze_last_llm_layer: true
+    freeze_embedding: true
+    unfreeze_vision_merger: false
+    unfreeze_llm_last_n_layers: 0
+    unfreeze_lam_decoder: true
+  logging_frequency: 100
+  gradient_clipping: 1.0
+  gradient_accumulation_steps: 4
+  ddp_find_unused_parameters: false
+  optimizer: {betas: [0.9, 0.95], eps: 1.0e-8, weight_decay: 1.0e-8}
+  pretrained_checkpoint: <REQUIRED_ROBOTWIN_SFT_RELEASE_CHECKPOINT>
+  pretrained_checkpoint_sha256: a52031302c6dc5b813982227255add8d2acb839149a4b90908b179a8f66adbeb
+  stage2_parent_phase: null
+  stage2_parent_selection: null
+  strict_finetune_init: false
+  load_pretrained_policy_flow: true
+  load_pretrained_lam: false
+  use_pretrained_dataset_statistics: false

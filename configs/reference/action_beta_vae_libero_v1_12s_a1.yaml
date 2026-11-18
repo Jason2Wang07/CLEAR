@@ -1,0 +1,68 @@
+seed_everything: 20260825
+
+model:
+  normalization_path: /data/share/libero/processed_data/actionvae/libero_actionvae_v1_12s_a1_dino_selected/stats/normalization.json
+  variant: a1
+  state_dim: 14
+  horizon: 24
+  hidden_dim: 128
+  condition_dim: 128
+  kernel_size: 3
+  dilations: [1, 2, 4, 8]
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+  reconstruction_beta: 0.1
+  kl_beta: 2.0e-1
+  kl_mean_warmup_fraction: 0.0
+  kl_ramp_fraction: 0.02
+  free_bits_nats: 0.02
+  total_training_steps: 10000
+  logvar_min: -6.0
+  logvar_max: 2.0
+  posterior_logvar_init: -4.0
+  deterministic_checkpoint_path: /data/250010178/actionvae-runs/libero/libero_v1_12s/action-ae/a1-dino-selected-s20260807-syncdist/checkpoints/epoch-091.ckpt
+  position_weight: 1.0
+  rotation_weight: 1.0
+  gripper_weight: 0.5
+
+data:
+  data_root: /data/share/libero/processed_data/actionvae/libero_actionvae_v1_12s_a1_dino_selected
+  variant: a1
+  require_e39: true
+  require_prior_context: false
+  batch_size: 256
+  num_workers: 8
+  block_size: 1024
+  max_open_shards: 8
+  drop_last: true
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+  preload_in_memory: false
+  seed: 20260825
+  verify_row_identity: true
+
+trainer:
+  max_steps: 10000
+  accelerator: gpu
+  devices: 2
+  use_distributed_sampler: false
+  precision: bf16-mixed
+  log_every_n_steps: 10
+  gradient_clip_val: 1.0
+  gradient_clip_algorithm: norm
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        dirpath: /data/250010178/actionvae-runs/libero/libero_v1_12s/action-beta-vae/standard-normal-tanh-b2e1-r200-e091-10k-s20260825/checkpoints
+        filename: "step-{step:07d}"
+        monitor: val/loss
+        mode: min
+        save_top_k: 1
+        save_last: true
+        auto_insert_metric_name: false
+  logger:
+    - class_path: lightning.pytorch.loggers.TensorBoardLogger
+      init_args:
+        save_dir: /data/250010178/actionvae-runs/libero/libero_v1_12s/action-beta-vae/standard-normal-tanh-b2e1-r200-e091-10k-s20260825/tensorboard
+        name: beta-vae

@@ -1,0 +1,185 @@
+{
+  "schema_version": "clear-model-release-v1",
+  "files": [
+    {
+      "path": "libero/policy/final_model/pytorch_model.pt",
+      "bytes": 7217730366,
+      "sha256": "9fed8962152928386ee154a7ddd63753c4f5894a45074c9924abeb133db75507",
+      "role": "policy"
+    },
+    {
+      "path": "robotwin/policy/final_model/pytorch_model.pt",
+      "bytes": 7217766014,
+      "sha256": "5736664dd95a69ae8d426e295cd5afe5efcd379b42456ce833c02b14725b843e",
+      "role": "policy"
+    },
+    {
+      "path": "libero/effect/epoch-39.ckpt",
+      "bytes": 8027705637,
+      "sha256": "75db2595c6ae37b636f8d6115051fe998aad973b7cbbda2ce18e4265cc86fe4a",
+      "role": "effect_teacher"
+    },
+    {
+      "path": "libero/action/step-0009889.ckpt",
+      "bytes": 16733588,
+      "sha256": "9c7aeb75e226d4d9f0af2632a95117a166dcdb6f4681e70529b623a7489008f5",
+      "role": "action_teacher"
+    },
+    {
+      "path": "robotwin/effect/epoch-09.ckpt",
+      "bytes": 8032370277,
+      "sha256": "66e872b5f6a67537b6cf33ad4d0b7e65652057e3e44a726f0a00c8205dd5c9a0",
+      "role": "effect_teacher"
+    },
+    {
+      "path": "robotwin/action/step-0010000.ckpt",
+      "bytes": 16794888,
+      "sha256": "fac6da745cff1706bc9037e54ba799fa71557f5847fdc1b20e28ad458e7d6bc6",
+      "role": "action_teacher"
+    },
+    {
+      "path": "libero/action/sidecar_reference/schema.json",
+      "bytes": 6891,
+      "sha256": "093da21ffe256bf5d049e79d8a1ad4826c9dd074a0d180562d90263198353c5f",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/action/sidecar_reference/provenance.json",
+      "bytes": 32032,
+      "sha256": "7a78ad6287163c73131a1a923cde0df3a58ec807b42fb6b7d6c9451af9a09775",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/action/sidecar_reference/checksums.sha256",
+      "bytes": 40751,
+      "sha256": "59d4e185da204b320814440a2bd8c4f07f67418b44c0a32c9cdab73819857880",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/action/sidecar_reference/stats/normalization.json",
+      "bytes": 1704,
+      "sha256": "bc8b3fd2d814ced88c707c60cd22cc43151912b5834426e60e41b193dbe0a0a4",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/action/sidecar_reference/schema.json",
+      "bytes": 5424,
+      "sha256": "222e3faea0c1c676214f7d28c7d3c8f08c8563aef14cd6ca3811cb4b1f462daf",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/action/sidecar_reference/provenance.json",
+      "bytes": 4950,
+      "sha256": "4a852c630f9ced2f7811e01d167be947c5c07d8d8ecf91535c89f1875973d5f8",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/action/sidecar_reference/checksums.sha256",
+      "bytes": 424,
+      "sha256": "ec343c1a14969042f9574f843f0d1210bff53f805cb4fb478fe025335a556a31",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/action/sidecar_reference/stats/normalization.json",
+      "bytes": 4467,
+      "sha256": "255a793877156dc668fdb69b1e74f1bf2415a109ae287821f8f4b5f50e605896",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/action/config.yaml",
+      "bytes": 2051,
+      "sha256": "47a919903a76057322a42607721f8742d33ed40af07a97547905e96b1db3d5f4",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/effect/config.yaml",
+      "bytes": 3179,
+      "sha256": "8ed6a8a6fa5927ed2f4711fafa596b63213bc432a62e93d45a5c397ee24c9853",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/effect/downstream_selection.json",
+      "bytes": 872,
+      "sha256": "a1b6891593e4568732900c0a67e3141329a1bee5c6cac212db38dca8620c0d39",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/policy/config.yaml",
+      "bytes": 5927,
+      "sha256": "0ab97d40e54c6ddb3a86ff930295b703d9be4b37e65735684040aa2d511be652",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/policy/dataset_statistics.json",
+      "bytes": 2736,
+      "sha256": "f25770e2efe656c7bf695efb44247cf6217ab43efdc8632c77bcdfcf640bd2ed",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/policy/final_model/pytorch_model.pt.stage2.json",
+      "bytes": 1085,
+      "sha256": "aab15f9b242483f3c61fe1991d74deb67721809d76c87e743e9c265a90cfd21e",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/action/config.yaml",
+      "bytes": 1433,
+      "sha256": "d2708adc9d90721adcb0f4a65dee52d4473eafe2ec4d1dd1281af2495f8bbbc1",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/effect/config.yaml",
+      "bytes": 3517,
+      "sha256": "1a1094f79c93c8fb0c77b32db29fc221eaefce932c3da3cac4cb74ea25b08bae",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/effect/downstream_selection.json",
+      "bytes": 598,
+      "sha256": "4ad7a8fcc2e56cae12e93f4d1ddf7b625145c231726695c4cafd031bd8308d4b",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/policy/config.yaml",
+      "bytes": 6335,
+      "sha256": "1801a3428c3dc21e3468fc95fab744441857345dcded65d38b20d532d5d24a83",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/policy/dataset_statistics.json",
+      "bytes": 5896,
+      "sha256": "1700bf8ca4eaddaa380a4786a58b09bdbf7474a6ef22fbe558e81c081e9599f0",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/policy/final_model/pytorch_model.pt.stage2.json",
+      "bytes": 1115,
+      "sha256": "3e7c87e0bc448580370b486e61c2dd8a07270a50b93b7ae43ce09443077302f5",
+      "role": "configuration"
+    },
+    {
+      "path": "libero/policy/action_normalization/stats/normalization.json",
+      "bytes": 1704,
+      "sha256": "bc8b3fd2d814ced88c707c60cd22cc43151912b5834426e60e41b193dbe0a0a4",
+      "role": "configuration"
+    },
+    {
+      "path": "robotwin/policy/action_normalization/stats/normalization.json",
+      "bytes": 4467,
+      "sha256": "255a793877156dc668fdb69b1e74f1bf2415a109ae287821f8f4b5f50e605896",
+      "role": "configuration"
+    },
+    {
+      "path": "LICENSE-Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "role": "license"
+    },
+    {
+      "path": "LICENSE-DINOv3.md",
+      "bytes": 7503,
+      "sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+      "role": "license"
+    }
+  ]
+}

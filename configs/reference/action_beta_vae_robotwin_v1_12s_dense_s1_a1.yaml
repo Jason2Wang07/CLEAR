@@ -1,0 +1,55 @@
+seed_everything: 20260829
+
+model:
+  normalization_path: /data/250010178/ActionVAE/LaWAM/results/data/robotwin_action_v1_12s_dense_stride1_a1_e09/stats/normalization.json
+  state_dim: 14
+  horizon: 36
+  hidden_dim: 128
+  condition_dim: 128
+  kernel_size: 3
+  dilations: [1, 2, 4, 8]
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+  reconstruction_beta: 0.1
+  kl_beta: 1.0e-3
+  kl_mean_warmup_fraction: 0.05
+  kl_ramp_fraction: 0.25
+  free_bits_nats: 0.02
+  total_training_steps: 10000
+  logvar_min: -6.0
+  logvar_max: 2.0
+  posterior_logvar_init: -4.0
+  deterministic_checkpoint_path: /data/250010178/actionvae-runs/robotwin/robotwin_v1_12s/action-ae/a1-dino-selected-s20260820/checkpoints/epoch-094.ckpt
+  position_weight: 1.0
+  rotation_weight: 1.0
+  gripper_weight: 0.5
+
+data:
+  data_root: /data/250010178/ActionVAE/LaWAM/results/data/robotwin_action_v1_12s_dense_stride1_a1_e09
+  variant: a1
+  require_e39: true
+  batch_size: 256
+  num_workers: 4
+  block_size: 1024
+  max_open_shards: 8
+  drop_last: true
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+  preload_in_memory: false
+  seed: 20260829
+  verify_row_identity: true
+
+trainer:
+  max_steps: 10000
+  accelerator: gpu
+  devices: 4
+  use_distributed_sampler: false
+  precision: bf16-mixed
+  log_every_n_steps: 10
+  val_check_interval: 5000
+  num_sanity_val_steps: 2
+  gradient_clip_val: 1.0
+  gradient_clip_algorithm: norm
+  callbacks: null
+  logger: false

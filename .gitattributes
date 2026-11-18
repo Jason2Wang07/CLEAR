@@ -1,0 +1,2 @@
+# Teacher config hashes bind the original bytes, including whitespace/newlines.
+configs/reference/*.yaml -text -whitespace

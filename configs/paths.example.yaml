@@ -1,0 +1,16 @@
+# Copy to an ignored local file and replace paths for the selected benchmark.
+qwen: checkpoints/base/Qwen3-VL-2B-Instruct
+dino: checkpoints/base/dinov3-vitb16-pretrain-lvd1689m
+lam_release: checkpoints/base/lawam_lam/checkpoints/pytorch_model.pt
+initial_policy: checkpoints/base/lawam_libero_sft_release/final_model/pytorch_model.pt
+effect_checkpoint: checkpoints/clear/libero/effect/epoch-39.ckpt
+action_checkpoint: checkpoints/clear/libero/action/step-0009889.ckpt
+deterministic_checkpoint: runs/libero/action_ae/checkpoints/selected.ckpt
+effect_data: data/libero/effect
+action_data: data/libero/action_a1
+effect_artifacts: data/libero/effect_artifacts
+latent_cache: data/libero/policy_cache
+dataset_parent: data
+source: data/libero_merged_no_noops_20hz
+sidecar_reference: checkpoints/clear/robotwin/action/sidecar_reference
+output: runs/libero

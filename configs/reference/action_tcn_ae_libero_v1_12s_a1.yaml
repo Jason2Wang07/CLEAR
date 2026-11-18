@@ -1,0 +1,62 @@
+seed_everything: 20260807
+
+model:
+  normalization_path: /data/share/libero/processed_data/actionvae/libero_actionvae_v1_12s_a1_dino_selected/stats/normalization.json
+  variant: a1
+  state_dim: 14
+  horizon: 24
+  hidden_dim: 128
+  condition_dim: 128
+  kernel_size: 3
+  dilations: [1, 2, 4, 8]
+  learning_rate: 3.0e-4
+  weight_decay: 1.0e-4
+  beta: 0.1
+  position_weight: 1.0
+  rotation_weight: 1.0
+  gripper_weight: 0.5
+
+data:
+  data_root: /data/share/libero/processed_data/actionvae/libero_actionvae_v1_12s_a1_dino_selected
+  variant: a1
+  require_e39: true
+  batch_size: 256
+  num_workers: 4
+  block_size: 1024
+  max_open_shards: 8
+  drop_last: true
+  pin_memory: true
+  persistent_workers: true
+  prefetch_factor: 2
+  preload_in_memory: false
+  seed: 20260807
+  verify_row_identity: true
+  train_subset_size: null
+  val_subset_size: null
+  test_subset_size: null
+  subset_seed: 20260807
+
+trainer:
+  max_epochs: 100
+  accelerator: gpu
+  devices: 1
+  use_distributed_sampler: false
+  precision: bf16-mixed
+  log_every_n_steps: 10
+  gradient_clip_val: 1.0
+  gradient_clip_algorithm: norm
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        dirpath: /data/share/libero/experiments/actionvae/libero_v1_12s/action-ae/a1-dino-selected-s20260807/checkpoints
+        filename: "epoch-{epoch:03d}"
+        monitor: val/loss
+        mode: min
+        save_top_k: 1
+        save_last: true
+        auto_insert_metric_name: false
+  logger:
+    - class_path: lightning.pytorch.loggers.TensorBoardLogger
+      init_args:
+        save_dir: /data/share/libero/experiments/actionvae/libero_v1_12s/action-ae
+        name: a1-dino-selected-s20260807
